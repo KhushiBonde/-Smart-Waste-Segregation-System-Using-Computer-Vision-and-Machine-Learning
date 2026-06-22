@@ -27,9 +27,13 @@ try:
 except ImportError:
     try:
         import importlib
-        tflite = importlib.import_module("tflite_runtime.interpreter")
+        tflite = importlib.import_module("ai_edge_litert.interpreter")
     except ImportError:
-        raise RuntimeError("Neither tensorflow.lite nor tflite_runtime.interpreter could be imported")
+        try:
+            import importlib
+            tflite = importlib.import_module("tflite_runtime.interpreter")
+        except ImportError:
+            raise RuntimeError("Neither tensorflow.lite, ai_edge_litert.interpreter, nor tflite_runtime.interpreter could be imported")
 
 # Try to find model file path
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
